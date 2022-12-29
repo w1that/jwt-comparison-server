@@ -64,14 +64,11 @@ app.post("/signup", (req, res) => {
     .save()
     .then((result) => {
       const oldDate = new Date().getMilliseconds();
-      setTimeout(() => {
-        const token = jwt.sign({ email }, secret);
+      const token = jwt.sign({ email }, secret);
+      const newDate = new Date().getMilliseconds();
 
-        const newDate = new Date().getMilliseconds();
-        
-        console.log(newDate - oldDate + "ms for creating token using HS256 algorithm");
+      console.log(newDate - oldDate + "ms");
       res.send({ token });
-      }, 45);
     })
     .catch((err) => {
       res.status(500).send({ message: "Error creating user" });

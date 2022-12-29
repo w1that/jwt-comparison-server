@@ -66,16 +66,13 @@ app.post("/signup", (req, res) => {
     .save()
     .then(() => {
       // Sign a JWT with the user's ID as the subject and the private key
-
       const oldDate = new Date().getMilliseconds();
       const token = jwt.sign({ sub: user.id }, privateKey, {
         algorithm: "RS256",
       });
-      let newDate;
-      setTimeout(() => {
-        newDate = new Date().getMilliseconds();
-        console.log(newDate - oldDate + "ms for creating token using RS256 algorithm");
-      }, 87);
+      const newDate = new Date().getMilliseconds();
+
+      console.log(newDate - oldDate + "ms");
 
       res.status(200).send({ token }); //token
     })
